@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciSequence", "FibonacciSequence\FibonacciSequence.csproj", "{E86AC90D-9EA9-4BDB-82BC-387057A7C423}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciSequence.Test", "FibonacciSequence.Test\FibonacciSequence.Test.csproj", "{00D85DF5-3AB8-45DF-8DDD-644942B3EF31}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E86AC90D-9EA9-4BDB-82BC-387057A7C423} = {E86AC90D-9EA9-4BDB-82BC-387057A7C423}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciSequence.TestConsole", "FibonacciSequence.TestConsole\FibonacciSequence.TestConsole.csproj", "{87063A05-90B6-44F7-8028-2BEC747C2ACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E86AC90D-9EA9-4BDB-82BC-387057A7C423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86AC90D-9EA9-4BDB-82BC-387057A7C423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86AC90D-9EA9-4BDB-82BC-387057A7C423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86AC90D-9EA9-4BDB-82BC-387057A7C423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00D85DF5-3AB8-45DF-8DDD-644942B3EF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D85DF5-3AB8-45DF-8DDD-644942B3EF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D85DF5-3AB8-45DF-8DDD-644942B3EF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D85DF5-3AB8-45DF-8DDD-644942B3EF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87063A05-90B6-44F7-8028-2BEC747C2ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87063A05-90B6-44F7-8028-2BEC747C2ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87063A05-90B6-44F7-8028-2BEC747C2ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87063A05-90B6-44F7-8028-2BEC747C2ACB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B771E0D5-C4FF-43F4-A755-96AEC6A55E94}
+	EndGlobalSection
+EndGlobal
