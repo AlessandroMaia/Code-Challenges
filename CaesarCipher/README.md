@@ -1,7 +1,7 @@
 # Desafio criado por Codenation
 # Configurações a serem feitas no projeto
 
-* Dentro da classe "ConfiguraçõesDoProjeto.cs" irá ter duas propriedades:
+* Dentro da classe "Configuracoes.cs" irá ter duas propriedades:
 
   * "string localDoArquivo =" que voce irá atribuir o caminho, nome e tipo do arquivo que irá criar.
     * Exemplo: string localDoArquivo = @"C:\Users\alessandro\Desktop\Codenation\answer.json";
