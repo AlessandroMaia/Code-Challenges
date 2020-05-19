@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 
 namespace LargestStates
 {
@@ -6,10 +8,10 @@ namespace LargestStates
     {
         public State[] Top10StatesByArea()
         {
-            return LoadSates().OrderByDescending(e => e.Extension).Take(10).ToArray();
+            return LoadStates().OrderByDescending(e => e.Extension).Take(10).ToArray();
         }
 
-        private State[] LoadSates()
+        private State[] LoadStates()
         {
             return new State[]
             {
