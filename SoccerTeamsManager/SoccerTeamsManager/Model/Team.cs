@@ -8,11 +8,11 @@ namespace SoccerTeamsManager.Model
     {
         public Team()
         {
-            IdCaptain = -1;
+            IdCaptain = null;
         }
 
         public long Id { get; set; }
-        public long IdCaptain { get; set; }
+        public long? IdCaptain { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
         public string MainShirtColor { get; set; }

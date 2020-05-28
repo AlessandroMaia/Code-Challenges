@@ -66,8 +66,8 @@ namespace SoccerTeamsManager
         public long GetTeamCaptain(long teamId)
         {
             TeamExist(teamId);
-            return TableTeams.Any(x => !x.IdCaptain.Equals(-1) && x.Id.Equals(teamId)) ?
-                TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x).First().IdCaptain :
+            return TableTeams.Any(x => x.IdCaptain.HasValue && x.Id.Equals(teamId)) ?
+                TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x).First().IdCaptain.Value :
                 throw new CaptainNotFoundException();
         }
 
