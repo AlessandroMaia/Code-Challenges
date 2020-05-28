@@ -12,6 +12,19 @@ namespace SoccerTeamsManager
         private List<Team> TableTeams = new List<Team>();
         private List<Player> TablePlayers = new List<Player>();
 
+        private void TeamExist(long id)
+        {
+            if (!TableTeams.Any(x => x.Id.Equals(id)))
+                throw new TeamNotFoundException();
+        }
+
+        private void PlayerExist(long id)
+        {
+            if (!TableTeams.Any(x => x.Id.Equals(id)))
+                throw new PlayerNotFoundException();
+        }
+
+
         public SoccerTeamsManager()
         {
         }
@@ -30,10 +43,11 @@ namespace SoccerTeamsManager
 
         public void AddPlayer(long id, long teamId, string name, DateTime birthDate, int skillLevel, decimal salary)
         {
+            TeamExist(teamId);
             TablePlayers.Add(new Player
             {
                 Id = TablePlayers.Any(x => x.Id.Equals(id)) ? throw new UniqueIdentifierException() : id,
-                TeamId = TableTeams.Any(x => x.Id.Equals(teamId)) ? teamId : throw new TeamNotFoundException(),
+                TeamId = teamId,
                 Name = name,
                 birthDate = birthDate,
                 SkillLevel = skillLevel,
@@ -43,56 +57,52 @@ namespace SoccerTeamsManager
 
         public void SetCaptain(long playerId)
         {
-            var soccer = TablePlayers.Any(x => x.Id.Equals(playerId)) ? TablePlayers.First(x => x.Id == playerId) : throw new PlayerNotFoundException();
-            var team = TableTeams.FirstOrDefault(x => x.Id == soccer.TeamId);
+            PlayerExist(playerId);
+            var soccer = TablePlayers.First(x => x.Id == playerId);
+            var team = TableTeams.First(x => x.Id == soccer.TeamId);
             team.IdCaptain = soccer.Id;
         }
 
         public long GetTeamCaptain(long teamId)
         {
-            return TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                TableTeams.Any(x => !x.IdCaptain.Equals(-1) && x.Id.Equals(teamId)) ? TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x.IdCaptain).First() : throw new CaptainNotFoundException()
-                        : throw new TeamNotFoundException();
+            TeamExist(teamId);
+            return TableTeams.Any(x => !x.IdCaptain.Equals(-1) && x.Id.Equals(teamId)) ?
+                TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x).First().IdCaptain :
+                throw new CaptainNotFoundException();
         }
 
         public string GetPlayerName(long playerId)
         {
-            return TablePlayers.Any(x => x.Id.Equals(playerId)) ?
-                TablePlayers.Where(x => x.Id.Equals(playerId)).Select(x => x.Name).ToString() :
-                throw new PlayerNotFoundException();
+            PlayerExist(playerId);
+            return TablePlayers.Where(x => x.Id.Equals(playerId)).Select(x => x.Name).ToString();
         }
 
         public string GetTeamName(long teamId)
         {
-            return TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x.Name).First()
-                : throw new TeamNotFoundException();
+            TeamExist(teamId);
+            return TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x.Name).First();
         }
 
         public List<long> GetTeamPlayers(long teamId)
         {
-            var list = TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                (from tabTeam in TableTeams
-                 join tabSoccer in TablePlayers
-                 on tabTeam.Id equals tabSoccer.TeamId
-                 where tabSoccer.TeamId.Equals(teamId)
-                 select tabSoccer.Id).OrderBy(x => x).ToList()
-                 : throw new TeamNotFoundException();
-            return list;
+            TeamExist(teamId);
+            return (from tabTeam in TableTeams
+                    join tabSoccer in TablePlayers
+                    on tabTeam.Id equals tabSoccer.TeamId
+                    where tabSoccer.TeamId.Equals(teamId)
+                    select tabSoccer.Id).OrderBy(x => x).ToList();
         }
 
         public long GetBestTeamPlayer(long teamId)
         {
-            return TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderByDescending(x => x.SkillLevel).ThenBy(x => x.Id).First().Id
-                : throw new TeamNotFoundException();
+            TeamExist(teamId);
+            return TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderByDescending(x => x.SkillLevel).ThenBy(x => x.Id).First().Id;
         }
 
         public long GetOlderTeamPlayer(long teamId)
         {
-            return TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderBy(x => x.birthDate).ThenBy(x => x.Id).First().Id
-                : throw new TeamNotFoundException();
+            TeamExist(teamId);
+            return TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderBy(x => x.birthDate).ThenBy(x => x.Id).First().Id;
         }
 
         public List<long> GetTeams()
@@ -102,16 +112,14 @@ namespace SoccerTeamsManager
 
         public long GetHigherSalaryPlayer(long teamId)
         {
-            return TableTeams.Any(x => x.Id.Equals(teamId)) ?
-                TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderByDescending(x => x.Salary).ThenBy(x => x.Id).First().Id
-                : throw new TeamNotFoundException();
+            TeamExist(teamId);
+            return TablePlayers.Where(x => x.TeamId.Equals(teamId)).Select(x => x).OrderByDescending(x => x.Salary).ThenBy(x => x.Id).First().Id;
         }
 
         public decimal GetPlayerSalary(long playerId)
         {
-            return TablePlayers.Any(x => x.Id.Equals(playerId)) ?
-                TablePlayers.Where(x => x.Id.Equals(playerId)).Select(x => x.Salary).First() :
-                throw new PlayerNotFoundException();
+            PlayerExist(playerId);
+            return TablePlayers.Where(x => x.Id.Equals(playerId)).Select(x => x.Salary).First();
         }
 
         public List<long> GetTopPlayers(int top)
@@ -127,14 +135,13 @@ namespace SoccerTeamsManager
 
         public string GetVisitorShirtColor(long teamId, long visitorTeamId)
         {
-            var shirtVisitorTeam = TableTeams.Any(x => x.Id == teamId || x.Id == visitorTeamId) ?
-                TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x.MainShirtColor.ToUpper()).First().Equals(TableTeams.Where(x => x.Id.Equals(visitorTeamId)).Select(x => x.MainShirtColor.ToUpper()).First()) ?
+            TeamExist(teamId);
+            TeamExist(visitorTeamId);
+
+            return TableTeams.Where(x => x.Id.Equals(teamId)).Select(x => x.MainShirtColor.ToUpper()).First().Equals(TableTeams.Where(x => x.Id.Equals(visitorTeamId)).Select(x => x.MainShirtColor.ToUpper()).First()) ?
                 TableTeams.Where(x => x.Id.Equals(visitorTeamId)).Select(x => x.SecondaryShirtColor).First() :
-                TableTeams.Where(x => x.Id.Equals(visitorTeamId)).Select(x => x.MainShirtColor).First()
-                : throw new TeamNotFoundException();
+                TableTeams.Where(x => x.Id.Equals(visitorTeamId)).Select(x => x.MainShirtColor).First();
 
-            return shirtVisitorTeam;
         }
-
     }
 }
