@@ -8,7 +8,10 @@ namespace LargestStates
     {
         public State[] Top10StatesByArea()
         {
-            return LoadStates().OrderByDescending(e => e.Extension).Take(10).ToArray();
+            return LoadSates()
+                .OrderByDescending(e => e.Extension)
+                .Take(10)
+                .ToArray();
         }
 
         private State[] LoadStates()
