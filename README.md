@@ -1,7 +1,8 @@
 ## Repositório destinado à desafios de código com foco em C#
 
 * **Desafios:**
-    * Criptografia de Júlio César
-    * Fibonacci
-    * Gerenciador de times de futebol
-    * Criando Entidades de Banco de Dados com C#
+    * CaesarCipher - Criptografia de Júlio César
+    * FibonacciSequence - Fibonacci
+    * SoccerTeamsManager - Gerenciador de times de futebol
+    * CreatingEntities - Criando Entidades de Banco de Dados com C#
+    * ManipulatingEF - Criando e manipulando entidades no Banco de dados com Entity Framework Core
