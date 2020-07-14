@@ -22,8 +22,8 @@ namespace Source.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Candidate>().HasKey(x => new { x.UserId, x.AccelerationId, x.CompanyId });
-            modelBuilder.Entity<Submission>().HasKey(x => new { x.UserId, x.ChallengeId });
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CodenationContext).Assembly);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
