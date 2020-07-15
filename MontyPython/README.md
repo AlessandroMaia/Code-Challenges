@@ -37,7 +37,9 @@ Retorna uma frase aleatória do ator passado como parâmetro.
 ## Estrutura do Banco de Dados
 Tabela: `scripts`
 
-**Campo**	  	   **Tipo**	   **Descrição**
+```
+Campo	  	   		Tipo	   	 Descrição
+
 id			    	Long	     Id do registro - Chave Primária
 episode	        	Int	         Número do episódio
 episode_name    	String	     Nome do episódio
@@ -49,6 +51,8 @@ detail	        	String	     Frase
 record_date	    	DateTime	 Data da gravação do episódio
 series	        	String	     Número da série
 transmission_date	DateTime	 Data da exibição do episódio
+
+```
 
 **Os tipos de dados se referem ao tipo na classe do objeto e não no banco de dados**
 
