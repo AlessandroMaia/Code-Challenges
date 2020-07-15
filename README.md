@@ -6,3 +6,4 @@
     * SoccerTeamsManager - Gerenciador de times de futebol
     * CreatingEntities - Criando Entidades de Banco de Dados com C#
     * ManipulatingEF - Criando e manipulando entidades no Banco de dados com Entity Framework Core
+    * ManipulatingData - Manipulação de dados com C# através de Web API
